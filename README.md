@@ -1,107 +1,116 @@
-📊 Customer Churn Prediction
+# 📊 Customer Churn Prediction using Machine Learning
 
-Metric-Driven ML Analysis with Business Insights
+<p align="center">
+  <img src="https://img.shields.io/badge/Model-CatBoost-blue" />
+  <img src="https://img.shields.io/badge/Metric-PR--AUC-orange" />
+  <img src="https://img.shields.io/badge/Problem-Customer%20Churn-red" />
+  <img src="https://img.shields.io/badge/Status-Completed-success" />
+</p>
 
-<p align="center"> <img src="https://img.shields.io/badge/Machine%20Learning-CatBoost-blue" /> <img src="https://img.shields.io/badge/Metric-PR--AUC-orange" /> <img src="https://img.shields.io/badge/Problem-Churn%20Prediction-red" /> <img src="https://img.shields.io/badge/Status-Completed-success" /> </p>
-🧠 Problem Statement
+---
 
-Customer churn directly impacts revenue.
-This project aims to identify customers likely to churn and support business decision-making using a metric-driven machine learning approach.
+## 🧠 Problem Statement
+Customer churn directly impacts revenue and long-term growth.  
+This project focuses on **identifying customers likely to churn** and **supporting business decisions** using a metric-driven machine learning approach.
 
-🎯 Project Goals
+---
 
-✔ Handle imbalanced churn data
-✔ Optimize for business-relevant metrics
-✔ Compare baseline vs advanced models
-✔ Translate ML outputs into actionable insights
+## 🎯 Project Objectives
+- Handle **imbalanced churn data**
+- Prioritize **recall for churners**
+- Select an **optimal decision threshold**
+- Compare baseline vs advanced models
+- Translate ML outputs into **actionable business insights**
 
-🗂 Dataset Overview
+---
 
-Dataset: Telco Customer Churn
+## 🗂 Dataset Overview
+- **Dataset**: Telco Customer Churn (IBM)
+- **Target Variable**: `Churn` (Yes / No)
+- **Churn Rate**: ~23%
+- **Challenge**: Highly imbalanced classes
 
-Target: Churn (Yes / No)
+---
 
-Churn Rate: ~23%
+## 📐 Why PR-AUC instead of Accuracy?
 
-Challenge: Class imbalance
+Accuracy is misleading for imbalanced datasets.
 
-📐 Why PR-AUC (Not Accuracy?)
+**PR-AUC was chosen because:**
+- Focuses on the **minority class (churners)**
+- Captures the **precision–recall trade-off**
+- Aligns with the **business cost of missing churners**
 
-Accuracy can be misleading when churners are a minority.
+---
 
-✔ PR-AUC focuses on churners (minority class)
-✔ Captures precision–recall trade-off
-✔ Aligns with cost of false negatives
+## 🧪 Modeling Pipeline
 
-🧪 Modeling Pipeline
+```text
 Data Cleaning
      ↓
 EDA & Feature Understanding
      ↓
 Baseline Model (Logistic Regression)
      ↓
-CatBoost (Final Model)
+CatBoost Classifier
      ↓
 PR-AUC Evaluation
      ↓
 Threshold Optimization
      ↓
-Feature Importance → Business Actions
+Feature Importance & SHAP Analysis
+     ↓
+Business Insights
+```
+## 🤖 Models Used
 
-🤖 Models Used
-Model	Purpose
-Logistic Regression	Baseline comparison
-CatBoost	Final model (handles categorical features)
+| Model | Purpose |
+|------|--------|
+| **Logistic Regression** | Baseline comparison |
+| **CatBoost Classifier** | Final model (handles categorical features natively) |
 
-Techniques Applied
+### 🔧 Techniques Applied
+- Stratified K-Fold Cross-Validation  
+- Class Weights for imbalance handling  
+- Early Stopping to prevent overfitting  
+- Probability-based evaluation  
+- Business-driven threshold tuning  
 
-Stratified K-Fold Cross Validation
+---
 
-Class Weights
+## 📈 Model Evaluation
 
-Early Stopping
+### 🔹 Precision–Recall Curve Analysis
+- Compared **Logistic Regression vs CatBoost**
+- CatBoost consistently maintained **higher precision at high recall**
+- Demonstrated superior ranking ability on imbalanced churn data
 
-Threshold tuning
+### 🔹 Threshold Selection
+- Selected **threshold = 0.4**
+- Achieved approximately **90% recall** for churners
+- Threshold treated as a **business decision**, not a fixed statistical rule
 
-📈 Model Evaluation
-🔹 Precision–Recall Curve Comparison
-
-CatBoost maintains higher precision at high recall
-
-Outperforms Logistic Regression consistently
-
-🔹 Threshold Selection
-
-Selected threshold = 0.4
-
-Achieved ~90% recall for churners
-
-Threshold selection treated as a business decision, not a mathematical one.
-
-🔍 Feature Importance → Business Actions
-Feature	Insight	Action
-📄 Contract	Month-to-month churn more	Promote long-term plans
-⏳ Tenure	Early churn risk	Strong onboarding
-💰 MonthlyCharges	Price sensitivity	Discounts
-📺 StreamingTV	Service stickiness	Bundled offers
-🔐 OnlineSecurity	Value addition	Free trials
-🧠 Business Decision Logic
+---
+```text
 IF churn_probability > 0.4:
-    → High Risk Customer
+    → High-Risk Customer
     → Apply targeted retention strategy
 ELSE:
-    → Low Risk Customer
+    → Low-Risk Customer
 
-📌 Key Takeaways
+```
 
-✔ Metric choice > model complexity
-✔ Threshold tuning is crucial
-✔ ML should drive actions, not just predictions
+## 🔍 Feature Importance & SHAP Explainability
 
-🚀 Future Improvements
+SHAP was used to explain **both global feature importance** and **individual churn predictions**, ensuring transparency and trust.
 
-SHAP explainability
+### 🔑 Key Churn Drivers Identified
+- 📄 **Contract** → Month-to-month contracts significantly increase churn  
+- ⏳ **Tenure** → New customers are more likely to churn  
+- 💰 **MonthlyCharges** → Higher charges correlate with churn  
+- 🔐 **OnlineSecurity / TechSupport** → Reduce churn risk  
+- 📺 **StreamingTV / OnlineBackup** → Increase customer stickiness  
 
-Cost-based optimization
+SHAP analysis enabled the model to explain **why a specific customer is predicted to churn**, making the solution suitable for real-world decision support.
 
-Model monitoring
+<img width="1187" height="774" alt="image" src="https://github.com/user-attachments/assets/8f0c5a56-02d5-42cc-8e26-d63efde64d81" />
