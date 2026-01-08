@@ -86,13 +86,13 @@ Business Insights
 - Demonstrated superior ranking ability on imbalanced churn data
 
 ### 🔹 Threshold Selection
-- Selected **threshold = 0.4**
+- Selected **threshold = 0.38**
 - Achieved approximately **90% recall** for churners
 - Threshold treated as a **business decision**, not a fixed statistical rule
 
 ---
 ```text
-IF churn_probability > 0.4:
+IF churn_probability > 0.38:
     → High-Risk Customer
     → Apply targeted retention strategy
 ELSE:
